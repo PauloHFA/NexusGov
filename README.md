@@ -50,6 +50,7 @@ NexusGov/
   3. *Audit Copilot*: Minutas de instrução técnica pré-formatadas para auditoria per Resolução TCU 367/2024.
   4. *Assinatura Digital Qualificada*: Validação com fé pública de contas Gov.br (Prata/Ouro) e ICP-Brasil.
   5. *Grafos Temporais Dinâmicos*: Linha do tempo interativa no Cytoscape com reprodução da evolução das redes.
+- **Base de Demonstração Integrada:** Migração Flyway `V2__seed_pilot_demo_data.sql` com casos reais simulados para João Pessoa, Campina Grande, Patos e Santa Rita (redes de cartel, fracionamento em janelas deslizantes e pop-up vendors).
 
 ### Execução Completa via Docker Compose
 Para iniciar toda a infraestrutura (PostgreSQL 16, RabbitMQ, MinIO, Backend Spring Boot 3.4 e Frontend Nginx):
