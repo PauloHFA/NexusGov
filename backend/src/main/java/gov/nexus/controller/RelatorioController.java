@@ -3,6 +3,7 @@ package gov.nexus.controller;
 import gov.nexus.report.DossierIntegrityVerifier;
 import gov.nexus.report.PdfDossierGenerator;
 import gov.nexus.service.AuditoriaService;
+import gov.nexus.service.ExportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,15 +14,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/api/v1/relatorios")
 @RequiredArgsConstructor
-@Tag(name = "Relatórios Forenses e Integridade", description = "Endpoints de geração de dossiês em PDF e verificação independente de integridade")
+@Tag(name = "Relatórios Forenses e Integridade", description = "Endpoints de geração de dossiês em PDF, exportações CSV e verificação independente de integridade")
 public class RelatorioController {
 
     private final PdfDossierGenerator pdfDossierGenerator;
     private final DossierIntegrityVerifier dossierIntegrityVerifier;
     private final AuditoriaService auditoriaService;
+    private final ExportService exportService;
 
     @Data
     public static class VerificarHashRequest {
@@ -56,5 +60,18 @@ public class RelatorioController {
                 "hashEsperado=" + body.getHashEsperado(), resultado.getHashCalculado(), request);
 
         return ResponseEntity.ok(resultado);
+    }
+
+    @GetMapping(value = "/export/csv", produces = "text/csv")
+    @Operation(summary = "Exportar contratações públicas em formato CSV aberto (RF-REL-02)")
+    public ResponseEntity<byte[]> exportarContratacoesCsv(HttpServletRequest request) {
+        byte[] csvData = exportService.exportarContratacoesCsv(Collections.emptyList());
+
+        auditoriaService.registrarLog("EXPORTACAO_CSV", "/api/v1/relatorios/export/csv",
+                "formato=csv", AuditoriaService.calcularSha256(new String(csvData)), request);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"contratacoes_nexusgov.csv\"")
+                .body(csvData);
     }
 }

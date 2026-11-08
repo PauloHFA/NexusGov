@@ -223,27 +223,27 @@
       "category": "ANA",
       "name": "Disparo Assíncrono com RabbitMQ",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/queue/worker.py"],
-      "test_files": ["analytics/tests/test_queue_worker.py"]
+      "test_files": ["analytics/tests/test_async_worker.py"]
     },
     {
       "id": "RF-ANA-09",
       "category": "ANA",
       "name": "Recálculo Histórico Versionado",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/iea/engine.py"],
-      "test_files": ["analytics/tests/test_recalculation.py"]
+      "test_files": ["analytics/tests/test_iea_recalculation.py"]
     },
     {
       "id": "RF-ANA-10",
       "category": "ANA",
       "name": "Cruzamento com Preços de Referência",
       "priority": "Could",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/price/reference_price.py"],
       "test_files": ["analytics/tests/test_reference_price.py"]
@@ -273,7 +273,7 @@
       "category": "CFG",
       "name": "Perfis de Análise",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/cfg/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/config/AnalysisProfile.java"],
       "test_files": ["backend/src/test/java/gov/nexus/config/AnalysisProfileTest.java"]
@@ -333,10 +333,10 @@
       "category": "API",
       "name": "Endpoints de Saúde e Métricas",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/api/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/controller/HealthController.java"],
-      "test_files": ["backend/src/test/java/gov/nexus/actuator/ActuatorTest.java"]
+      "test_files": ["backend/src/test/java/gov/nexus/controller/HealthControllerTest.java"]
     },
     {
       "id": "RF-REL-01",
@@ -353,7 +353,7 @@
       "category": "REL",
       "name": "Exportação em CSV e Parquet",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/rel/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/service/ExportService.java"],
       "test_files": ["backend/src/test/java/gov/nexus/service/ExportServiceTest.java"]
@@ -443,7 +443,7 @@
       "category": "UI",
       "name": "Mapa por Município com Risco Agregado",
       "priority": "Could",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/features/map/MunicipalityMap.tsx"],
       "test_files": ["frontend/src/features/map/MunicipalityMap.test.tsx"]

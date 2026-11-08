@@ -26,15 +26,15 @@ class SyntheticScenarioGenerator:
         u = self.rng.uniform(log_min, log_max, size=n)
         return [round(float(10.0 ** x), 2) for x in u]
 
-    def generate_anomalous_series(self, n: int = 1000, fixed_digit: int = 7) -> List[float]:
+    def generate_anomalous_series(self, n: int = 1000, fixed_digit: int = 7, anomaly_rate: float = 0.85) -> List[float]:
         """
         Gera uma série que viola a Lei de Benford (ex: excesso de valores começando com o mesmo dígito).
         MAD esperado: > 0.015 (Não conforme).
         """
         vals = []
         for _ in range(n):
-            # 80% dos números começam com fixed_digit
-            if self.rng.random() < 0.80:
+            # anomaly_rate dos números começam com fixed_digit
+            if self.rng.random() < anomaly_rate:
                 base = fixed_digit * (10 ** self.rng.integers(2, 5))
                 offset = self.rng.uniform(0, 99)
                 vals.append(round(float(base + offset), 2))
