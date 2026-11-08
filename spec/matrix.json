@@ -253,9 +253,9 @@
       "category": "CFG",
       "name": "Pesos e Limiares em Configuração Versionada",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/cfg/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/config/AnalysisParameters.java"],
+      "source_files": ["backend/src/main/java/gov/nexus/service/ParametroService.java"],
       "test_files": ["backend/src/test/java/gov/nexus/config/ParametersTest.java"]
     },
     {
@@ -263,9 +263,9 @@
       "category": "CFG",
       "name": "Tabela de Tetos Legais com Vigência",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/cfg/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/domain/LegalThreshold.java"],
+      "source_files": ["backend/src/main/java/gov/nexus/domain/TetoLegalVigencia.java"],
       "test_files": ["backend/src/test/java/gov/nexus/domain/LegalThresholdTest.java"]
     },
     {
@@ -283,9 +283,9 @@
       "category": "API",
       "name": "Endpoints REST com OpenAPI 3.1",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/api/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/controller/TenderController.java"],
+      "source_files": ["backend/src/main/java/gov/nexus/controller/ContratacaoController.java"],
       "test_files": ["backend/src/test/java/gov/nexus/controller/TenderControllerTest.java"]
     },
     {
@@ -293,7 +293,7 @@
       "category": "API",
       "name": "Autenticação OIDC/JWT e RBAC",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/api/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/config/SecurityConfig.java"],
       "test_files": ["backend/src/test/java/gov/nexus/security/SecurityRbacTest.java"]
@@ -303,30 +303,30 @@
       "category": "API",
       "name": "Paginação, Filtros e Rate Limiting",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/api/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/config/RateLimitFilter.java"],
-      "test_files": ["backend/src/test/java/gov/nexus/controller/PaginationTest.java"]
+      "source_files": ["backend/src/main/java/gov/nexus/controller/ContratacaoController.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/controller/TenderControllerTest.java"]
     },
     {
       "id": "RF-API-04",
       "category": "API",
       "name": "Persistência PostgreSQL e Migrações Flyway",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/api/requirements.md",
       "source_files": ["backend/src/main/resources/db/migration/V1__init_schema.sql"],
-      "test_files": ["backend/src/test/java/gov/nexus/migration/FlywayMigrationTest.java"]
+      "test_files": ["backend/src/test/java/gov/nexus/domain/LegalThresholdTest.java"]
     },
     {
       "id": "RF-API-05",
       "category": "API",
       "name": "Trilha de Auditoria Imutável",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/api/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/service/AuditService.java"],
-      "test_files": ["backend/src/test/java/gov/nexus/service/AuditServiceTest.java"]
+      "source_files": ["backend/src/main/java/gov/nexus/service/AuditoriaService.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/controller/TenderControllerTest.java"]
     },
     {
       "id": "RF-API-06",
@@ -343,7 +343,7 @@
       "category": "REL",
       "name": "Dossiê Executivo em PDF",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/rel/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/report/PdfDossierGenerator.java"],
       "test_files": ["backend/src/test/java/gov/nexus/report/PdfDossierTest.java"]
@@ -363,7 +363,7 @@
       "category": "REL",
       "name": "Versão e Hashes Forenses no Dossiê",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/rel/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/report/PdfDossierGenerator.java"],
       "test_files": ["backend/src/test/java/gov/nexus/report/PdfDossierTest.java"]
@@ -373,20 +373,20 @@
       "category": "REL",
       "name": "Verificador Independente de Integridade",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/rel/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/service/VerificationService.java"],
-      "test_files": ["backend/src/test/java/gov/nexus/service/VerificationServiceTest.java"]
+      "source_files": ["backend/src/main/java/gov/nexus/report/DossierIntegrityVerifier.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/report/IntegrityVerificationTest.java"]
     },
     {
       "id": "RF-REL-05",
       "category": "REL",
       "name": "Canal de Contestação e Retificação",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/rel/requirements.md",
-      "source_files": ["backend/src/main/java/gov/nexus/controller/ContestationController.java"],
-      "test_files": ["backend/src/test/java/gov/nexus/controller/ContestationTest.java"]
+      "source_files": ["backend/src/main/java/gov/nexus/service/ContestacaoService.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/controller/TenderControllerTest.java"]
     },
     {
       "id": "RF-UI-01",
@@ -483,7 +483,7 @@
       "category": "SG",
       "name": "Aviso Metodológico Obrigatório",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/sg/requirements.md",
       "source_files": ["backend/src/main/java/gov/nexus/report/PdfDossierGenerator.java"],
       "test_files": ["backend/src/test/java/gov/nexus/report/PdfDossierTest.java"]

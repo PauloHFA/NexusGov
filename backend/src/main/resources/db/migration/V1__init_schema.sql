@@ -50,7 +50,7 @@ CREATE TABLE socio (
     rotulo_identidade VARCHAR(50) DEFAULT 'confirmada' NOT NULL, -- confirmada, presumida
     criado_em TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
-CREATE INDEX idx_socio_nome_cpf ON socio (nome_normalizado, cpf_mascarado);
+CREATE INDEX idx_socio_nome_cpf ON socio (nome_normalizado, cpf_cnpj_mascarado);
 
 -- 4. Vínculos Societários entre Fornecedores e Sócios
 CREATE TABLE vinculo_societario (

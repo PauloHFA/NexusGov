@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: nexusgov-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/nexusgov}
+    username: ${SPRING_DATASOURCE_USERNAME:nexusgov}
+    password: ${SPRING_DATASOURCE_PASSWORD:nexusgov_secret}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+
+nexusgov:
+  pilot:
+    uf: PB
+    ibge-prefix: "25"
+  audit:
+    enabled: true
+  parameters:
+    default-version: "v1.0.0"

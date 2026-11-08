@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: nexusgov-backend-test
+  datasource:
+    url: jdbc:h2:mem:nexusgov_test;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  flyway:
+    enabled: false
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+nexusgov:
+  pilot:
+    uf: PB
+    ibge-prefix: "25"
+  audit:
+    enabled: true
+  parameters:
+    default-version: "v1.0.0"
