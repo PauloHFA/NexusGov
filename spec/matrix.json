@@ -183,7 +183,7 @@
       "category": "ANA",
       "name": "Teste de Benford, Mantissa KS e FDR",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/benford/benford_test.py"],
       "test_files": ["analytics/tests/test_benford.py"]
@@ -193,7 +193,7 @@
       "category": "ANA",
       "name": "Detecção de Fracionamento de Despesa",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/split/fracionamento.py"],
       "test_files": ["analytics/tests/test_fracionamento.py"]
@@ -203,7 +203,7 @@
       "category": "ANA",
       "name": "Detector de Pop-up Vendors",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/popup/popup_vendor.py"],
       "test_files": ["analytics/tests/test_popup_vendor.py"]
@@ -213,7 +213,7 @@
       "category": "ANA",
       "name": "Cálculo do IEA com Decomposição",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/iea/engine.py"],
       "test_files": ["analytics/tests/test_iea_engine.py"]
@@ -463,7 +463,7 @@
       "category": "SG",
       "name": "Linguagem Não Acusatória e Neutra",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/sg/requirements.md",
       "source_files": ["spec/check_language_safeguard.py"],
       "test_files": ["tests/test_language_safeguard.py"]
@@ -473,10 +473,10 @@
       "category": "SG",
       "name": "Transparência de Sinais em Níveis Médio/Elevado",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/sg/requirements.md",
       "source_files": ["analytics/iea/engine.py"],
-      "test_files": ["analytics/tests/test_safeguards.py"]
+      "test_files": ["analytics/tests/test_iea_engine.py"]
     },
     {
       "id": "SG-03",
@@ -493,10 +493,10 @@
       "category": "SG",
       "name": "Exigência de Multieixo para Nível Elevado",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/sg/requirements.md",
       "source_files": ["analytics/iea/engine.py"],
-      "test_files": ["analytics/tests/test_safeguards.py"]
+      "test_files": ["analytics/tests/test_iea_engine.py"]
     },
     {
       "id": "SG-05",
