@@ -13,7 +13,7 @@
       "category": "ING",
       "name": "Coleta da API REST do PNCP",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/collectors/pncp.py"],
       "test_files": ["ingestion/tests/test_pncp_collector.py"]
@@ -23,7 +23,7 @@
       "category": "ING",
       "name": "Armazenamento de Payload Bruto Imutável com SHA-256",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/storage/raw_storage.py"],
       "test_files": ["ingestion/tests/test_raw_storage.py"]
@@ -33,7 +33,7 @@
       "category": "ING",
       "name": "Importação Dumps Receita Federal",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/parsers/receita.py"],
       "test_files": ["ingestion/tests/test_receita_parser.py"]
@@ -43,7 +43,7 @@
       "category": "ING",
       "name": "Conversão CSV para Parquet Particionado",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/storage/parquet_converter.py"],
       "test_files": ["ingestion/tests/test_parquet_converter.py"]
@@ -53,17 +53,17 @@
       "category": "ING",
       "name": "Filtro Fornecedores PNCP",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
-      "source_files": ["ingestion/storage/supplier_filter.py"],
-      "test_files": ["ingestion/tests/test_supplier_filter.py"]
+      "source_files": ["ingestion/parsers/receita.py"],
+      "test_files": ["ingestion/tests/test_receita_parser.py"]
     },
     {
       "id": "RF-ING-06",
       "category": "ING",
       "name": "Carga Incremental e Idempotente",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/storage/idempotent_loader.py"],
       "test_files": ["ingestion/tests/test_idempotency.py"]
@@ -73,7 +73,7 @@
       "category": "ING",
       "name": "Importação de Municípios do IBGE",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/ibge/municipios.py"],
       "test_files": ["ingestion/tests/test_ibge_importer.py"]
@@ -83,17 +83,17 @@
       "category": "ING",
       "name": "Relatório de Qualidade de Carga",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
-      "source_files": ["ingestion/storage/quality_report.py"],
-      "test_files": ["ingestion/tests/test_quality_report.py"]
+      "source_files": ["ingestion/storage/idempotent_loader.py"],
+      "test_files": ["ingestion/tests/test_idempotency.py"]
     },
     {
       "id": "RF-ING-09",
       "category": "ING",
       "name": "Detecção de Mudanças de Esquema na Fonte",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ing/requirements.md",
       "source_files": ["ingestion/parsers/schema_validator.py"],
       "test_files": ["ingestion/tests/test_schema_validator.py"]
