@@ -393,7 +393,7 @@
       "category": "UI",
       "name": "Busca Global",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/features/search/SearchBar.tsx"],
       "test_files": ["frontend/src/features/search/SearchBar.test.tsx"]
@@ -403,7 +403,7 @@
       "category": "UI",
       "name": "Visualizador Interativo de Redes Cytoscape.js",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/features/graph/NetworkGraph.tsx"],
       "test_files": ["frontend/src/features/graph/NetworkGraph.test.tsx"]
@@ -413,7 +413,7 @@
       "category": "UI",
       "name": "Painel de Detalhes com IEA e Evidências",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/features/edital/TenderDetail.tsx"],
       "test_files": ["frontend/src/features/edital/TenderDetail.test.tsx"]
@@ -423,7 +423,7 @@
       "category": "UI",
       "name": "Filtros por Período, UF, Valor e Risco",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/features/search/FilterPanel.tsx"],
       "test_files": ["frontend/src/features/search/FilterPanel.test.tsx"]
@@ -433,7 +433,7 @@
       "category": "UI",
       "name": "Linha do Tempo de Fracionamento",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/features/edital/FracionamentoTimeline.tsx"],
       "test_files": ["frontend/src/features/edital/FracionamentoTimeline.test.tsx"]
@@ -453,7 +453,7 @@
       "category": "UI",
       "name": "Aviso Metodológico Visível",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ui/requirements.md",
       "source_files": ["frontend/src/components/MethodologicalNotice.tsx"],
       "test_files": ["frontend/src/components/MethodologicalNotice.test.tsx"]

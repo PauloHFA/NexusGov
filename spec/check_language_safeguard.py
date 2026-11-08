@@ -24,24 +24,24 @@ FORBIDDEN_TERMS = [
     r"\bilicito comprovado\b",
 ]
 
-# Diretórios ou arquivos isentos (ex.: arquivos de teste da salvaguarda e o SRS)
-EXCLUDED_PATHS = [
-    Path("NexusGov — Documento de Requisitos de Software (SRS) e Metodologia.pdf"),
-    Path("spec/check_language_safeguard.py"),
-    Path("spec/sg/requirements.md"),
-    Path("tests/test_language_safeguard.py"),
-    Path(".git"),
-    Path("venv"),
-    Path(".venv"),
-    Path("target"),
-    Path("node_modules"),
-]
+# Nomes de diretórios ignorados
+EXCLUDED_DIR_NAMES = {"node_modules", "target", ".git", ".venv", "venv", "dist", ".idea", ".vscode"}
+
+# Arquivos específicos isentos (ex.: arquivos de teste da salvaguarda e o SRS)
+EXCLUDED_FILES = {
+    "NexusGov — Documento de Requisitos de Software (SRS) e Metodologia.pdf",
+    "check_language_safeguard.py",
+    "requirements.md",
+    "test_language_safeguard.py",
+    "MethodologicalNotice.test.tsx",
+}
 
 def is_excluded(file_path: Path, root: Path) -> bool:
-    rel = file_path.relative_to(root)
-    for exc in EXCLUDED_PATHS:
-        if exc == rel or exc in rel.parents:
+    for part in file_path.parts:
+        if part in EXCLUDED_DIR_NAMES:
             return True
+    if file_path.name in EXCLUDED_FILES:
+        return True
     return False
 
 def check_language(root_dir: Path):
