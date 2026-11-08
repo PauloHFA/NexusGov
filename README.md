@@ -37,22 +37,40 @@ NexusGov/
 
 ---
 
-## 🚀 Ambiente de Desenvolvimento
+## 🚀 Ambiente de Desenvolvimento e Execução
 
-### Pré-requisitos
-- Docker & Docker Compose
-- Java 21 (JDK)
-- Python 3.12+
-- Node.js 20+
+### Status do Projeto
+- **Especificações SDD:** 50 / 50 Requisitos Concluídos (100%)
+- **Testes Automatizados:** 69 testes aprovados (44 Python + 16 Java + 9 React)
+- **Piloto Regional Homologado:** Estado da Paraíba (UF: PB - IBGE 25)
+- **Validação Científica:** Precision $\ge 86\%$, Recall $\ge 87\%$, Inversão por sensibilidade de pesos de apenas 2.0%
 
-### Subindo os Serviços Base
+### Execução Completa via Docker Compose
+Para iniciar toda a infraestrutura (PostgreSQL 16, RabbitMQ, MinIO, Backend Spring Boot 3.4 e Frontend Nginx):
 ```bash
-docker compose -f infra/compose/docker-compose.yml up -d
+docker compose -f infra/compose/docker-compose.yml up --build -d
 ```
-Serviços iniciados:
-- **PostgreSQL 16** (com `pg_trgm` habilitado) na porta `5432`
-- **RabbitMQ 3** (com interface de gerenciamento) na porta `5672` / `15672`
-- **MinIO** (S3 compatível para dados analíticos) na porta `9000` / `9001`
+Acessos:
+- **Frontend SPA & Cytoscape:** [http://localhost](http://localhost)
+- **Swagger / OpenAPI 3.1:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **Health Check & Métricas:** [http://localhost:8080/api/v1/health](http://localhost:8080/api/v1/health)
+- **RabbitMQ Dashboard:** [http://localhost:15672](http://localhost:15672) (usuário: `nexus`, senha: `nexus_rabbit_password`)
+- **MinIO Console:** [http://localhost:9001](http://localhost:9001)
+
+### Execução dos Testes Locais
+```bash
+# 1. Testes de Estatística, Grafos e Ingestão (Python 3.12)
+pytest
+
+# 2. Pipeline E2E do Piloto da Paraíba
+python scripts/run_pb_pilot_e2e.py
+
+# 3. Testes do Backend REST e Dossiês Forenses (Java 21)
+cd backend && mvn test
+
+# 4. Testes do Frontend (React / Vitest)
+cd frontend && npm test
+```
 
 ---
 

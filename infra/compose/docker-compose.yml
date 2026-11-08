@@ -57,6 +57,41 @@ services:
       timeout: 5s
       retries: 3
 
+  nexus-backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: nexusgov-backend
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://nexus-db:5432/nexusgov
+      SPRING_DATASOURCE_USERNAME: nexus
+      SPRING_DATASOURCE_PASSWORD: nexus_dev_password
+      RABBITMQ_HOST: nexus-rabbitmq
+    ports:
+      - "8080:8080"
+    depends_on:
+      nexus-db:
+        condition: service_healthy
+      nexus-rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/api/v1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  nexus-frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+    container_name: nexusgov-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - nexus-backend
+
 volumes:
   postgres_data:
   rabbitmq_data:

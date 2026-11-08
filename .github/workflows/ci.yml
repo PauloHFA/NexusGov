@@ -1,0 +1,103 @@
+name: NexusGov CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  sdd-and-safeguards:
+    name: SDD Traceability & Language Safeguards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pydantic
+
+      - name: Validate SDD Traceability Matrix
+        run: python spec/validate_traceability.py
+
+      - name: Verify SG-01 Neutral Language Safeguard
+        run: python spec/check_language_safeguard.py
+
+  python-analytics:
+    name: Analytics & Ingestion Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install system dependencies for igraph / leiden
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libxml2-dev
+
+      - name: Install Python requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-asyncio numpy scipy networkx python-igraph leidenalg pydantic duckdb pyarrow polars httpx tenacity
+
+      - name: Run Pytest Suite
+        run: |
+          export PYTHONPATH="."
+          pytest -v
+
+      - name: Run Paraíba Pilot E2E Script
+        run: |
+          export PYTHONPATH="."
+          python scripts/run_pb_pilot_e2e.py
+
+  backend-java:
+    name: Java 21 Spring Boot Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run Maven Tests
+        working-directory: ./backend
+        run: mvn clean test -B
+
+  frontend-react:
+    name: React 18 / TypeScript Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install npm dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run Vitest Suite
+        working-directory: ./frontend
+        run: npm test
+
+      - name: Build Production Bundle
+        working-directory: ./frontend
+        run: npm run build
