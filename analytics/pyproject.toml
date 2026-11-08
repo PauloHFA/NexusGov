@@ -1,0 +1,25 @@
+[project]
+name = "nexusgov-analytics"
+version = "0.1.0"
+description = "Motor Analítico Forense por Grafos e Estatística do NexusGov"
+requires-python = ">=3.12"
+dependencies = [
+    "polars>=1.6.0",
+    "duckdb>=1.1.0",
+    "networkx>=3.3",
+    "python-igraph>=0.11.6",
+    "leidenalg>=0.10.2",
+    "scipy>=1.14.0",
+    "statsmodels>=0.14.2",
+    "scikit-learn>=1.5.1",
+    "pika>=1.3.2",
+    "psycopg2-binary>=2.9.9",
+    "pydantic>=2.8.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "hypothesis>=6.111.0",
+    "ruff>=0.6.0"
+]

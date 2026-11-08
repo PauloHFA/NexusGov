@@ -1,0 +1,512 @@
+{
+  "project": "NexusGov",
+  "version": "1.0.0",
+  "methodology": "Spec-Driven Development (SDD)",
+  "pilot_scope": {
+    "uf": "PB",
+    "estado": "Paraíba",
+    "ibge_prefix": "25"
+  },
+  "requirements": [
+    {
+      "id": "RF-ING-01",
+      "category": "ING",
+      "name": "Coleta da API REST do PNCP",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/collectors/pncp.py"],
+      "test_files": ["ingestion/tests/test_pncp_collector.py"]
+    },
+    {
+      "id": "RF-ING-02",
+      "category": "ING",
+      "name": "Armazenamento de Payload Bruto Imutável com SHA-256",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/storage/raw_storage.py"],
+      "test_files": ["ingestion/tests/test_raw_storage.py"]
+    },
+    {
+      "id": "RF-ING-03",
+      "category": "ING",
+      "name": "Importação Dumps Receita Federal",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/parsers/receita.py"],
+      "test_files": ["ingestion/tests/test_receita_parser.py"]
+    },
+    {
+      "id": "RF-ING-04",
+      "category": "ING",
+      "name": "Conversão CSV para Parquet Particionado",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/storage/parquet_converter.py"],
+      "test_files": ["ingestion/tests/test_parquet_converter.py"]
+    },
+    {
+      "id": "RF-ING-05",
+      "category": "ING",
+      "name": "Filtro Fornecedores PNCP",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/storage/supplier_filter.py"],
+      "test_files": ["ingestion/tests/test_supplier_filter.py"]
+    },
+    {
+      "id": "RF-ING-06",
+      "category": "ING",
+      "name": "Carga Incremental e Idempotente",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/storage/idempotent_loader.py"],
+      "test_files": ["ingestion/tests/test_idempotency.py"]
+    },
+    {
+      "id": "RF-ING-07",
+      "category": "ING",
+      "name": "Importação de Municípios do IBGE",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/ibge/municipios.py"],
+      "test_files": ["ingestion/tests/test_ibge_importer.py"]
+    },
+    {
+      "id": "RF-ING-08",
+      "category": "ING",
+      "name": "Relatório de Qualidade de Carga",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/storage/quality_report.py"],
+      "test_files": ["ingestion/tests/test_quality_report.py"]
+    },
+    {
+      "id": "RF-ING-09",
+      "category": "ING",
+      "name": "Detecção de Mudanças de Esquema na Fonte",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/ing/requirements.md",
+      "source_files": ["ingestion/parsers/schema_validator.py"],
+      "test_files": ["ingestion/tests/test_schema_validator.py"]
+    },
+    {
+      "id": "RF-ENT-01",
+      "category": "ENT",
+      "name": "Normalização de CNPJ e Nomes",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ent/requirements.md",
+      "source_files": ["analytics/graph/normalizer.py"],
+      "test_files": ["analytics/tests/test_normalizer.py"]
+    },
+    {
+      "id": "RF-ENT-02",
+      "category": "ENT",
+      "name": "Normalização de Endereços e Telefones",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ent/requirements.md",
+      "source_files": ["analytics/graph/normalizer.py"],
+      "test_files": ["analytics/tests/test_normalizer.py"]
+    },
+    {
+      "id": "RF-ENT-03",
+      "category": "ENT",
+      "name": "Resolução de Sócios Pessoa Física com Confiança",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ent/requirements.md",
+      "source_files": ["analytics/graph/entity_resolution.py"],
+      "test_files": ["analytics/tests/test_entity_resolution.py"]
+    },
+    {
+      "id": "RF-ENT-04",
+      "category": "ENT",
+      "name": "Vinculação de Fornecedores PNCP à Receita Federal",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ent/requirements.md",
+      "source_files": ["analytics/graph/entity_resolution.py"],
+      "test_files": ["analytics/tests/test_entity_resolution.py"]
+    },
+    {
+      "id": "RF-ENT-05",
+      "category": "ENT",
+      "name": "Cadeias Societárias de PJs",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/ent/requirements.md",
+      "source_files": ["analytics/graph/entity_resolution.py"],
+      "test_files": ["analytics/tests/test_corporate_chains.py"]
+    },
+    {
+      "id": "RF-ANA-01",
+      "category": "ANA",
+      "name": "Construção do Grafo Heterogêneo",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/graph/network_builder.py"],
+      "test_files": ["analytics/tests/test_network_builder.py"]
+    },
+    {
+      "id": "RF-ANA-02",
+      "category": "ANA",
+      "name": "Comunidades Leiden e Centralidade",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/graph/leiden_detector.py", "analytics/graph/centrality.py"],
+      "test_files": ["analytics/tests/test_leiden_detector.py"]
+    },
+    {
+      "id": "RF-ANA-03",
+      "category": "ANA",
+      "name": "Risco por Licitação RC com Grafo Nulo",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/graph/null_graph.py"],
+      "test_files": ["analytics/tests/test_null_graph.py"]
+    },
+    {
+      "id": "RF-ANA-04",
+      "category": "ANA",
+      "name": "Teste de Benford, Mantissa KS e FDR",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/benford/benford_test.py"],
+      "test_files": ["analytics/tests/test_benford.py"]
+    },
+    {
+      "id": "RF-ANA-05",
+      "category": "ANA",
+      "name": "Detecção de Fracionamento de Despesa",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/split/fracionamento.py"],
+      "test_files": ["analytics/tests/test_fracionamento.py"]
+    },
+    {
+      "id": "RF-ANA-06",
+      "category": "ANA",
+      "name": "Detector de Pop-up Vendors",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/popup/popup_vendor.py"],
+      "test_files": ["analytics/tests/test_popup_vendor.py"]
+    },
+    {
+      "id": "RF-ANA-07",
+      "category": "ANA",
+      "name": "Cálculo do IEA com Decomposição",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/iea/engine.py"],
+      "test_files": ["analytics/tests/test_iea_engine.py"]
+    },
+    {
+      "id": "RF-ANA-08",
+      "category": "ANA",
+      "name": "Disparo Assíncrono com RabbitMQ",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/queue/worker.py"],
+      "test_files": ["analytics/tests/test_queue_worker.py"]
+    },
+    {
+      "id": "RF-ANA-09",
+      "category": "ANA",
+      "name": "Recálculo Histórico Versionado",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/iea/engine.py"],
+      "test_files": ["analytics/tests/test_recalculation.py"]
+    },
+    {
+      "id": "RF-ANA-10",
+      "category": "ANA",
+      "name": "Cruzamento com Preços de Referência",
+      "priority": "Could",
+      "status": "Planned",
+      "spec_file": "spec/ana/requirements.md",
+      "source_files": ["analytics/price/reference_price.py"],
+      "test_files": ["analytics/tests/test_reference_price.py"]
+    },
+    {
+      "id": "RF-CFG-01",
+      "category": "CFG",
+      "name": "Pesos e Limiares em Configuração Versionada",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/cfg/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/config/AnalysisParameters.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/config/ParametersTest.java"]
+    },
+    {
+      "id": "RF-CFG-02",
+      "category": "CFG",
+      "name": "Tabela de Tetos Legais com Vigência",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/cfg/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/domain/LegalThreshold.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/domain/LegalThresholdTest.java"]
+    },
+    {
+      "id": "RF-CFG-03",
+      "category": "CFG",
+      "name": "Perfis de Análise",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/cfg/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/config/AnalysisProfile.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/config/AnalysisProfileTest.java"]
+    },
+    {
+      "id": "RF-API-01",
+      "category": "API",
+      "name": "Endpoints REST com OpenAPI 3.1",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/api/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/controller/TenderController.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/controller/TenderControllerTest.java"]
+    },
+    {
+      "id": "RF-API-02",
+      "category": "API",
+      "name": "Autenticação OIDC/JWT e RBAC",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/api/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/config/SecurityConfig.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/security/SecurityRbacTest.java"]
+    },
+    {
+      "id": "RF-API-03",
+      "category": "API",
+      "name": "Paginação, Filtros e Rate Limiting",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/api/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/config/RateLimitFilter.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/controller/PaginationTest.java"]
+    },
+    {
+      "id": "RF-API-04",
+      "category": "API",
+      "name": "Persistência PostgreSQL e Migrações Flyway",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/api/requirements.md",
+      "source_files": ["backend/src/main/resources/db/migration/V1__init_schema.sql"],
+      "test_files": ["backend/src/test/java/gov/nexus/migration/FlywayMigrationTest.java"]
+    },
+    {
+      "id": "RF-API-05",
+      "category": "API",
+      "name": "Trilha de Auditoria Imutável",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/api/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/service/AuditService.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/service/AuditServiceTest.java"]
+    },
+    {
+      "id": "RF-API-06",
+      "category": "API",
+      "name": "Endpoints de Saúde e Métricas",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/api/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/controller/HealthController.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/actuator/ActuatorTest.java"]
+    },
+    {
+      "id": "RF-REL-01",
+      "category": "REL",
+      "name": "Dossiê Executivo em PDF",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/rel/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/report/PdfDossierGenerator.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/report/PdfDossierTest.java"]
+    },
+    {
+      "id": "RF-REL-02",
+      "category": "REL",
+      "name": "Exportação em CSV e Parquet",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/rel/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/service/ExportService.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/service/ExportServiceTest.java"]
+    },
+    {
+      "id": "RF-REL-03",
+      "category": "REL",
+      "name": "Versão e Hashes Forenses no Dossiê",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/rel/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/report/PdfDossierGenerator.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/report/PdfDossierTest.java"]
+    },
+    {
+      "id": "RF-REL-04",
+      "category": "REL",
+      "name": "Verificador Independente de Integridade",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/rel/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/service/VerificationService.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/service/VerificationServiceTest.java"]
+    },
+    {
+      "id": "RF-REL-05",
+      "category": "REL",
+      "name": "Canal de Contestação e Retificação",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/rel/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/controller/ContestationController.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/controller/ContestationTest.java"]
+    },
+    {
+      "id": "RF-UI-01",
+      "category": "UI",
+      "name": "Busca Global",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/features/search/SearchBar.tsx"],
+      "test_files": ["frontend/src/features/search/SearchBar.test.tsx"]
+    },
+    {
+      "id": "RF-UI-02",
+      "category": "UI",
+      "name": "Visualizador Interativo de Redes Cytoscape.js",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/features/graph/NetworkGraph.tsx"],
+      "test_files": ["frontend/src/features/graph/NetworkGraph.test.tsx"]
+    },
+    {
+      "id": "RF-UI-03",
+      "category": "UI",
+      "name": "Painel de Detalhes com IEA e Evidências",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/features/edital/TenderDetail.tsx"],
+      "test_files": ["frontend/src/features/edital/TenderDetail.test.tsx"]
+    },
+    {
+      "id": "RF-UI-04",
+      "category": "UI",
+      "name": "Filtros por Período, UF, Valor e Risco",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/features/search/FilterPanel.tsx"],
+      "test_files": ["frontend/src/features/search/FilterPanel.test.tsx"]
+    },
+    {
+      "id": "RF-UI-05",
+      "category": "UI",
+      "name": "Linha do Tempo de Fracionamento",
+      "priority": "Should",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/features/edital/FracionamentoTimeline.tsx"],
+      "test_files": ["frontend/src/features/edital/FracionamentoTimeline.test.tsx"]
+    },
+    {
+      "id": "RF-UI-06",
+      "category": "UI",
+      "name": "Mapa por Município com Risco Agregado",
+      "priority": "Could",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/features/map/MunicipalityMap.tsx"],
+      "test_files": ["frontend/src/features/map/MunicipalityMap.test.tsx"]
+    },
+    {
+      "id": "RF-UI-07",
+      "category": "UI",
+      "name": "Aviso Metodológico Visível",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/ui/requirements.md",
+      "source_files": ["frontend/src/components/MethodologicalNotice.tsx"],
+      "test_files": ["frontend/src/components/MethodologicalNotice.test.tsx"]
+    },
+    {
+      "id": "SG-01",
+      "category": "SG",
+      "name": "Linguagem Não Acusatória e Neutra",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/sg/requirements.md",
+      "source_files": ["spec/check_language_safeguard.py"],
+      "test_files": ["tests/test_language_safeguard.py"]
+    },
+    {
+      "id": "SG-02",
+      "category": "SG",
+      "name": "Transparência de Sinais em Níveis Médio/Elevado",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/sg/requirements.md",
+      "source_files": ["analytics/iea/engine.py"],
+      "test_files": ["analytics/tests/test_safeguards.py"]
+    },
+    {
+      "id": "SG-03",
+      "category": "SG",
+      "name": "Aviso Metodológico Obrigatório",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/sg/requirements.md",
+      "source_files": ["backend/src/main/java/gov/nexus/report/PdfDossierGenerator.java"],
+      "test_files": ["backend/src/test/java/gov/nexus/report/PdfDossierTest.java"]
+    },
+    {
+      "id": "SG-04",
+      "category": "SG",
+      "name": "Exigência de Multieixo para Nível Elevado",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/sg/requirements.md",
+      "source_files": ["analytics/iea/engine.py"],
+      "test_files": ["analytics/tests/test_safeguards.py"]
+    },
+    {
+      "id": "SG-05",
+      "category": "SG",
+      "name": "Mitigação de Falsos Positivos de Homonímia",
+      "priority": "Must",
+      "status": "Planned",
+      "spec_file": "spec/sg/requirements.md",
+      "source_files": ["analytics/graph/entity_resolution.py", "analytics/iea/engine.py"],
+      "test_files": ["analytics/tests/test_safeguards.py"]
+    }
+  ]
+}
