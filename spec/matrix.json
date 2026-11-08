@@ -103,7 +103,7 @@
       "category": "ENT",
       "name": "Normalização de CNPJ e Nomes",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ent/requirements.md",
       "source_files": ["analytics/graph/normalizer.py"],
       "test_files": ["analytics/tests/test_normalizer.py"]
@@ -113,7 +113,7 @@
       "category": "ENT",
       "name": "Normalização de Endereços e Telefones",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ent/requirements.md",
       "source_files": ["analytics/graph/normalizer.py"],
       "test_files": ["analytics/tests/test_normalizer.py"]
@@ -123,7 +123,7 @@
       "category": "ENT",
       "name": "Resolução de Sócios Pessoa Física com Confiança",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ent/requirements.md",
       "source_files": ["analytics/graph/entity_resolution.py"],
       "test_files": ["analytics/tests/test_entity_resolution.py"]
@@ -133,7 +133,7 @@
       "category": "ENT",
       "name": "Vinculação de Fornecedores PNCP à Receita Federal",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ent/requirements.md",
       "source_files": ["analytics/graph/entity_resolution.py"],
       "test_files": ["analytics/tests/test_entity_resolution.py"]
@@ -143,17 +143,17 @@
       "category": "ENT",
       "name": "Cadeias Societárias de PJs",
       "priority": "Should",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ent/requirements.md",
       "source_files": ["analytics/graph/entity_resolution.py"],
-      "test_files": ["analytics/tests/test_corporate_chains.py"]
+      "test_files": ["analytics/tests/test_entity_resolution.py"]
     },
     {
       "id": "RF-ANA-01",
       "category": "ANA",
       "name": "Construção do Grafo Heterogêneo",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/graph/network_builder.py"],
       "test_files": ["analytics/tests/test_network_builder.py"]
@@ -163,17 +163,17 @@
       "category": "ANA",
       "name": "Comunidades Leiden e Centralidade",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/graph/leiden_detector.py", "analytics/graph/centrality.py"],
-      "test_files": ["analytics/tests/test_leiden_detector.py"]
+      "test_files": ["analytics/tests/test_leiden_detector.py", "analytics/tests/test_centrality.py"]
     },
     {
       "id": "RF-ANA-03",
       "category": "ANA",
       "name": "Risco por Licitação RC com Grafo Nulo",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/ana/requirements.md",
       "source_files": ["analytics/graph/null_graph.py"],
       "test_files": ["analytics/tests/test_null_graph.py"]
@@ -503,10 +503,10 @@
       "category": "SG",
       "name": "Mitigação de Falsos Positivos de Homonímia",
       "priority": "Must",
-      "status": "Planned",
+      "status": "Implemented",
       "spec_file": "spec/sg/requirements.md",
-      "source_files": ["analytics/graph/entity_resolution.py", "analytics/iea/engine.py"],
-      "test_files": ["analytics/tests/test_safeguards.py"]
+      "source_files": ["analytics/graph/entity_resolution.py"],
+      "test_files": ["analytics/tests/test_entity_resolution.py"]
     }
   ]
 }
