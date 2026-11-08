@@ -24,6 +24,10 @@ public class ContestacaoDto {
     private String documentosAnexos;
     private String status;
     private String parecerResposta;
+    private String tipoAssinaturaDigital;
+    private String tokenAssinatura;
+    private Boolean assinaturaValida;
+    private String hashCertificado;
     private OffsetDateTime criadoEm;
     private OffsetDateTime respondidoEm;
 }

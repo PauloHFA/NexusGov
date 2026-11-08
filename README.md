@@ -41,9 +41,15 @@ NexusGov/
 
 ### Status do Projeto
 - **Especificações SDD:** 50 / 50 Requisitos Concluídos (100%)
-- **Testes Automatizados:** 69 testes aprovados (44 Python + 16 Java + 9 React)
+- **Testes Automatizados:** 79 testes aprovados (48 Python + 20 Java + 11 React)
 - **Piloto Regional Homologado:** Estado da Paraíba (UF: PB - IBGE 25)
 - **Validação Científica:** Precision $\ge 86\%$, Recall $\ge 87\%$, Inversão por sensibilidade de pesos de apenas 2.0%
+- **Recursos Avançados de Auditoria:**
+  1. *Streaming Intra-Dia*: Ingestão de editais em tempo real com alertas preventivos de prazos exíguos.
+  2. *Bases de Sanções Federais*: Cruzamento direto e indireto com CEIS, CNEP, CEPIM e TCU.
+  3. *Audit Copilot*: Minutas de instrução técnica pré-formatadas para auditoria per Resolução TCU 367/2024.
+  4. *Assinatura Digital Qualificada*: Validação com fé pública de contas Gov.br (Prata/Ouro) e ICP-Brasil.
+  5. *Grafos Temporais Dinâmicos*: Linha do tempo interativa no Cytoscape com reprodução da evolução das redes.
 
 ### Execução Completa via Docker Compose
 Para iniciar toda a infraestrutura (PostgreSQL 16, RabbitMQ, MinIO, Backend Spring Boot 3.4 e Frontend Nginx):

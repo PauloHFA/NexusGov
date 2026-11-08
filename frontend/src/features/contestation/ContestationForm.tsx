@@ -10,6 +10,7 @@ export const ContestationForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [contratacaoId, setContratacaoId] = useState('');
   const [motivo, setMotivo] = useState('');
+  const [tipoAssinatura, setTipoAssinatura] = useState<string>('SEM_ASSINATURA');
   const [loading, setLoading] = useState(false);
   const [protocoloGerado, setProtocoloGerado] = useState<ContestacaoResponse | null>(null);
 
@@ -170,6 +171,32 @@ export const ContestationForm: React.FC = () => {
                 className="w-full p-2.5 border border-slate-300 rounded-lg"
                 required
               />
+            </div>
+
+            {/* Assinatura Digital Qualificada (Melhoria 4) */}
+            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-lg space-y-2">
+              <label className="block font-semibold text-slate-800">
+                Assinatura Digital de Fé Pública (Opcional):
+              </label>
+              <select
+                value={tipoAssinatura}
+                onChange={(e) => setTipoAssinatura(e.target.value)}
+                className="w-full p-2 border border-slate-300 rounded-lg bg-white text-xs"
+              >
+                <option value="SEM_ASSINATURA">Sem assinatura digital (Apenas protocolo simples)</option>
+                <option value="GOVBR_OURO">Gov.br — Conta Nível Ouro (Biometria / TSE)</option>
+                <option value="GOVBR_PRATA">Gov.br — Conta Nível Prata (Bancos Credenciados)</option>
+                <option value="ICP_BRASIL_ECNPJ">ICP-Brasil — Certificado e-CNPJ (A1/A3)</option>
+                <option value="ICP_BRASIL_ECPF">ICP-Brasil — Certificado e-CPF (A1/A3)</option>
+              </select>
+              {tipoAssinatura !== 'SEM_ASSINATURA' && (
+                <div className="flex items-center gap-2 text-[11px] text-teal-800 bg-teal-50 p-2 rounded border border-teal-200">
+                  <span>✓</span>
+                  <span>
+                    A manifestação será autenticada digitalmente conferindo validade jurídica e fé pública nos termos da MP 2.200-2/2001 e Decreto 10.543/2020.
+                  </span>
+                </div>
+              )}
             </div>
 
             <button

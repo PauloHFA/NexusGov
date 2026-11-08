@@ -16,6 +16,36 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ graphData, onClose, 
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<Core | null>(null);
   const [selectedNode, setSelectedNode] = useState<CytoscapeNode['data'] | null>(null);
+  const [anoCorte, setAnoCorte] = useState<number>(2026);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setAnoCorte((prev) => {
+        if (prev >= 2026) {
+          setIsPlaying(false);
+          return 2026;
+        }
+        return prev + 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (!cyRef.current) return;
+    cyRef.current.batch(() => {
+      cyRef.current?.nodes().forEach((node) => {
+        const nodeYear = node.data('ano') || node.data('anoAbertura') || 2021;
+        if (nodeYear > anoCorte) {
+          node.style('display', 'none');
+        } else {
+          node.style('display', 'element');
+        }
+      });
+    });
+  }, [anoCorte]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -209,6 +239,38 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ graphData, onClose, 
               Fechar
             </button>
           )}
+        </div>
+      </div>
+
+      {/* Barra de Linha do Tempo Dinâmica (Melhoria 5) */}
+      <div className="bg-slate-800 border-b border-slate-700 px-4 py-2 flex items-center justify-between text-xs text-slate-200 z-10 flex-wrap gap-2">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              if (anoCorte >= 2026) setAnoCorte(2021);
+              setIsPlaying(!isPlaying);
+            }}
+            className="px-2.5 py-1 bg-teal-600 hover:bg-teal-500 text-white rounded font-bold text-[11px] flex items-center gap-1 transition"
+          >
+            {isPlaying ? '⏸ Pausar' : '▶ Reproduzir Evolução Temporal'}
+          </button>
+          <span className="font-semibold text-slate-300">
+            Linha do Tempo da Rede: <strong className="text-teal-400 font-mono text-sm">{anoCorte}</strong>
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3 w-64">
+          <span className="text-[10px] text-slate-400">2021</span>
+          <input
+            type="range"
+            min={2021}
+            max={2026}
+            step={1}
+            value={anoCorte}
+            onChange={(e) => setAnoCorte(Number(e.target.value))}
+            className="w-full accent-teal-500 cursor-pointer h-1.5 bg-slate-700 rounded-lg"
+          />
+          <span className="text-[10px] text-slate-400">2026</span>
         </div>
       </div>
 

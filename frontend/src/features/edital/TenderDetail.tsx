@@ -3,6 +3,7 @@ import { ContratacaoDetail, NivelRisco } from '../../api/types';
 import { apiService } from '../../api/client';
 import { MethodologicalNotice } from '../../components/MethodologicalNotice';
 import { FracionamentoTimeline } from './FracionamentoTimeline';
+import { AuditCopilotModal } from '../copilot/AuditCopilotModal';
 import {
   FileDown,
   ExternalLink,
@@ -24,6 +25,7 @@ interface TenderDetailProps {
 
 export const TenderDetail: React.FC<TenderDetailProps> = ({ contratacao, onBack, onOpenGraph }) => {
   const [activeTab, setActiveTab] = useState<'sinais' | 'itens' | 'fracionamento' | 'custodia'>('sinais');
+  const [copilotOpen, setCopilotOpen] = useState(false);
 
   const iea = contratacao.iea;
   const score = iea?.valorIea || 0;
@@ -78,6 +80,13 @@ export const TenderDetail: React.FC<TenderDetailProps> = ({ contratacao, onBack,
             <span>Explorar Grafo</span>
           </button>
 
+          <button
+            onClick={() => setCopilotOpen(true)}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-3.5 py-2 rounded-lg shadow-sm transition"
+          >
+            <span>Gerar Minuta Copilot</span>
+          </button>
+
           <a
             href={apiService.getDossiePdfUrl(contratacao.id)}
             download
@@ -88,6 +97,17 @@ export const TenderDetail: React.FC<TenderDetailProps> = ({ contratacao, onBack,
           </a>
         </div>
       </div>
+
+      {/* Modal Audit Copilot */}
+      <AuditCopilotModal
+        isOpen={copilotOpen}
+        onClose={() => setCopilotOpen(false)}
+        contratacaoId={contratacao.id}
+        numeroControlePncp={contratacao.numeroControlePncp}
+        orgaoNome={contratacao.orgao?.nomeOrgao || 'Órgão Licitante'}
+        ieaScore={score}
+        nivelRisco={nivel}
+      />
 
       {/* Card Principal: Resumo & Velocímetro IEA */}
       <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">

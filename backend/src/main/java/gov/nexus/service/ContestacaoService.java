@@ -8,6 +8,7 @@ import gov.nexus.dto.PageResponse;
 import gov.nexus.repository.ContestacaoRepository;
 import gov.nexus.repository.ContratacaoRepository;
 import gov.nexus.repository.FornecedorRepository;
+import gov.nexus.security.DigitalSignatureValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,10 +26,26 @@ public class ContestacaoService {
     private final ContestacaoRepository contestacaoRepository;
     private final ContratacaoRepository contratacaoRepository;
     private final FornecedorRepository fornecedorRepository;
+    private final DigitalSignatureValidator signatureValidator;
 
     @Transactional
     public ContestacaoDto criarContestacao(ContestacaoDto dto) {
         String protocolo = "NEXUS-" + System.currentTimeMillis();
+
+        // Validação da assinatura digital Gov.br / ICP-Brasil se informada
+        DigitalSignatureValidator.SignatureType tipoSig = DigitalSignatureValidator.SignatureType.SEM_ASSINATURA_DIGITAL;
+        if (dto.getTipoAssinaturaDigital() != null) {
+            try {
+                tipoSig = DigitalSignatureValidator.SignatureType.valueOf(dto.getTipoAssinaturaDigital());
+            } catch (Exception ignored) {}
+        }
+
+        DigitalSignatureValidator.SignatureValidationResult sigResult = signatureValidator.validarAssinatura(
+                tipoSig,
+                dto.getTokenAssinatura(),
+                dto.getMotivoContestacao(),
+                dto.getNomeSolicitante()
+        );
 
         Contratacao c = (dto.getContratacaoId() != null)
                 ? contratacaoRepository.findById(dto.getContratacaoId()).orElse(null)
@@ -48,12 +65,16 @@ public class ContestacaoService {
                 .fornecedor(f)
                 .motivoContestacao(dto.getMotivoContestacao())
                 .documentosAnexos(dto.getDocumentosAnexos())
-                .status("EM_ANALISE")
+                .status(sigResult.isValida() ? "EM_ANALISE_QUALIFICADA" : "EM_ANALISE")
                 .criadoEm(OffsetDateTime.now())
                 .build();
 
         Contestacao salvo = contestacaoRepository.save(entity);
-        return toDto(salvo);
+        ContestacaoDto ret = toDto(salvo);
+        ret.setTipoAssinaturaDigital(sigResult.getTipoAssinatura().name());
+        ret.setAssinaturaValida(sigResult.isValida());
+        ret.setHashCertificado(sigResult.getHashAssinaturaSha256());
+        return ret;
     }
 
     @Transactional(readOnly = true)
